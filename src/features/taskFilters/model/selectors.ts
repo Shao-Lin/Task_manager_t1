@@ -4,8 +4,6 @@ import { selectAllTasks } from "@entities/TaskItem/model/slice";
 import { selectTaskFilters } from "./slice";
 import type { Task } from "@entities/TaskItem/model/types";
 
-/* ───────────— helpers —────────── */
-
 const passesSingleFilter = <T>(filterValue: T | "", taskValue: T): boolean =>
   filterValue === "" || filterValue === taskValue;
 
