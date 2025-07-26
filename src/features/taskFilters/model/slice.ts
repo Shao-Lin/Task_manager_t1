@@ -1,18 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type {
-  TaskStatus,
-  TaskPriority,
-  TaskCategory,
-} from "../../../entities/TaskItem/model/types";
 import type { RootState } from "../../../app/store";
+import { FiltersState } from "./types";
 
-interface FiltersState {
-  search: string;
-  status: TaskStatus | "";
-  category: TaskCategory | "";
-  priority: TaskPriority | "";
-}
 const initialState: FiltersState = {
   search: "",
   status: "",

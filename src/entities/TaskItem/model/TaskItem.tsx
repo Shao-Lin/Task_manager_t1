@@ -8,8 +8,8 @@ import { Dot } from "lucide-react";
 import type { Task } from "./types";
 import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
-import { deleteTask } from "./slice";
-import { useAppDispatch } from "@/shared/lib/hooks";
+
+type Props = Task & { onDelete: (id: string) => void };
 
 const TaskItem = ({
   id,
@@ -19,10 +19,10 @@ const TaskItem = ({
   status,
   priority,
   date,
-}: Task) => {
+  onDelete,
+}: Props) => {
   const [icon, setIcon] = useState<React.ReactElement>(<Clock />);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     switch (status) {
@@ -37,16 +37,14 @@ const TaskItem = ({
         break;
     }
   }, [status]);
+
   return (
     <article className={styles.task}>
       <div className={styles.task_container}>
         <div className={styles.top_section}>
           <div className={styles.title_container}>
             <p className={styles.title}>{title}</p>
-            <div
-              onClick={() => dispatch(deleteTask(id))}
-              className={styles.trash}
-            >
+            <div onClick={() => onDelete(id)} className={styles.trash}>
               <FaTrashAlt />
             </div>
           </div>

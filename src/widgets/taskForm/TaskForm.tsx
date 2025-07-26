@@ -6,10 +6,12 @@ import { DatePickerInput } from "@mantine/dates";
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { addTask, updateTask } from "@/entities/TaskItem/model/slice";
+//import { addTask, updateTask } from "@/entities/TaskItem/model/slice";
 import { useDispatch } from "react-redux";
 import dateHelper from "@/shared/lib/dateHelper";
 import { v4 as uuidv4 } from "uuid";
+
+import { updateTask, addTask } from "@/entities/TaskItem/api/taskApi";
 
 import type {
   TaskStatus,
@@ -36,7 +38,9 @@ const schema = Yup.object({
 });
 
 const TaskForm = ({ task }: TaskFormProps) => {
-  const dispatch = useDispatch();
+  if (!task) console.log("noooo");
+  console.log(task);
+  console.log("11");
 
   const navigate = useNavigate();
 
@@ -55,13 +59,17 @@ const TaskForm = ({ task }: TaskFormProps) => {
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values) => {
-        if (task) {
-          dispatch(updateTask(values));
-        } else {
-          dispatch(addTask(values));
+      onSubmit={async (values) => {
+        try {
+          if (task) {
+            await updateTask(values);
+          } else {
+            await addTask(values);
+          }
+          navigate("/");
+        } catch (err) {
+          console.error(err);
         }
-        navigate("/");
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
