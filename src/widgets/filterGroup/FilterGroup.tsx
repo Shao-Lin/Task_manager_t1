@@ -1,14 +1,6 @@
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
 import SearchInput from "@shared/UI/SeatchInput";
 import SelectInput from "@shared/UI/SelectInput";
 import styles from "./filterGroup.module.css";
-import {
-  setSearch,
-  setStatus,
-  setCategory,
-  setPriority,
-  selectTaskFilters,
-} from "@features/taskFilters/model/slice";
 import {
   TaskCategory,
   TaskPriority,
@@ -16,11 +8,19 @@ import {
 } from "@/entities/TaskItem/model/types";
 import { Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { useTaskFilters } from "@/features/taskFilters/model/TaskFiltersContext";
 
 const FilterGroup = () => {
-  const dispatch = useAppDispatch();
-  const { search, status, category, priority } =
-    useAppSelector(selectTaskFilters);
+  const {
+    setSearch,
+    setStatus,
+    setCategory,
+    setPriority,
+    search,
+    status,
+    category,
+    priority,
+  } = useTaskFilters();
 
   const statusOptions: (TaskStatus | "")[] = [
     "",
@@ -44,7 +44,7 @@ const FilterGroup = () => {
       <div className={styles.search_filter}>
         <SearchInput
           value={search}
-          onChange={(v) => dispatch(setSearch(v))}
+          onChange={(v) => setSearch(v)}
           placeholder="Search Task..."
         />
       </div>
@@ -53,21 +53,21 @@ const FilterGroup = () => {
           value={status}
           data={statusOptions}
           placeholder={"Status"}
-          onChange={(v) => dispatch(setStatus(v as TaskStatus | ""))}
+          onChange={(v) => setStatus(v as TaskStatus | "")}
         />
 
         <SelectInput
           value={category}
           data={categoryOptions}
           placeholder={"Category"}
-          onChange={(v) => dispatch(setCategory(v as TaskCategory | ""))}
+          onChange={(v) => setCategory(v as TaskCategory | "")}
         />
 
         <SelectInput
           value={priority}
           data={priorityOptions}
           placeholder={"Priority"}
-          onChange={(v) => dispatch(setPriority(v as TaskPriority | ""))}
+          onChange={(v) => setPriority(v as TaskPriority | "")}
         />
       </div>
       <div className={styles.button_new_task}>

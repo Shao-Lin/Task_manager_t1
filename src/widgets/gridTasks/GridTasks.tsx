@@ -1,12 +1,15 @@
+import { applyTaskFilters } from "@/features/taskFilters/model/ApplyTaskFilters";
 import TaskItem from "../../entities/TaskItem/model/TaskItem";
 import styles from "./GridTasks.module.css";
-import { selectFilteredTasks } from "@/features/taskFilters/model/selectors";
-import { useAppSelector } from "@/shared/lib/hooks";
+import { useTaskFilters } from "@/features/taskFilters/model/TaskFiltersContext";
+import { useTasks } from "@/entities/TaskItem/model/TasksContext";
 const GridTasks = () => {
-  const tasks = useAppSelector(selectFilteredTasks);
+  const { tasks } = useTasks();
+  const filters = useTaskFilters();
+  const filteredTasks = applyTaskFilters(tasks, filters);
   return (
     <div className={styles.grid_container}>
-      {tasks.map((item) => (
+      {filteredTasks.map((item) => (
         <TaskItem key={item.id} {...item} />
       ))}
     </div>

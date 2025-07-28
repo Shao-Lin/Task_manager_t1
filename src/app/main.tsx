@@ -4,16 +4,18 @@ import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import App from "./App";
 import "@mantine/core/styles.css";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import { TaskFiltersProvider } from "@/features/taskFilters/model/TaskFiltersContext";
+import { TasksProvider } from "@/entities/TaskItem/model/TasksContext";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <MantineProvider>
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <TasksProvider>
+          <TaskFiltersProvider>
+            <App />
+          </TaskFiltersProvider>
+        </TasksProvider>
       </MantineProvider>
     </BrowserRouter>
   </React.StrictMode>
