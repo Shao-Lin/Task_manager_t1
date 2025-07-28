@@ -5,8 +5,9 @@ https://task-manager-t1-blond.vercel.app/
 
 Домашние задания
 
-Ветка hw_2 — Второе задание
-Ветка hw_3 - Фронт с бэк API
+Ветка homework1 - первое задание
+Ветка homework2 — Второе задание
+Ветка homework3 - Фронт с бэк API
 Стек
 
 ⚛️ React + TypeScript
